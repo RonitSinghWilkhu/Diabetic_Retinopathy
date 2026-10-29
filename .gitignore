@@ -1,0 +1,40 @@
+@"
+# Python Environment
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Node.js / Frontend
+node_modules/
+dist/
+build/
+.vite/
+
+# AI / ML Models & Artifacts
+artifacts/
+*.pth
+*.pt
+*.h5
+*.onnx
+*.safetensors
+*.pkl
+
+# Data & Documents
+data/
+*.pdf
+*.csv
+*.zip
+
+# Jupyter Notebooks (contain large embedded outputs)
+*.ipynb
+
+# Secrets
+.env
+*.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+"@ | Out-File -FilePath .gitignore -Encoding utf8

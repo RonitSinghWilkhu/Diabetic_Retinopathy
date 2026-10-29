@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+pydantic-settings
+python-dotenv
+Pillow
+numpy
+pandas
+scikit-learn
+torch
+torchvision
+matplotlib
