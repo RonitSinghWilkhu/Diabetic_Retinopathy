@@ -5,6 +5,7 @@ class HealthResponse(BaseModel):
     message: str
 
 class PredictionResponse(BaseModel):
+    analysis_id: int | None = None
     predicted_class: str
     predicted_class_index: int = Field(ge=0, le=4)
     confidence: float = Field(ge=0.0, le=1.0)

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth, chat, explanations, predictions
+from app.api import auth, chat, explanations, history, predictions
 from app.schemas import HealthResponse
 
 from pathlib import Path
@@ -30,6 +30,7 @@ app.include_router(predictions.router, prefix="/api/predictions", tags=["Predict
 app.include_router(explanations.router, prefix="/api/explanations", tags=["Explanations"])
 app.include_router(chat.router, prefix="/api/chat", tags=["Educational Chat"])
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(history.router, prefix="/api/history", tags=["Analysis History"])
 
 
 @app.get("/", response_model=HealthResponse)

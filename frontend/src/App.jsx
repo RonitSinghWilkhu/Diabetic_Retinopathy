@@ -44,6 +44,8 @@ import AuthScreen from "./AuthScreen";
 
 import Sidebar from "./Sidebar";
 
+import HistoryPage from "./HistoryPage";
+
 import ForgotPassword from "./ForgotPassword";
 
 import ResetPassword from "./ResetPassword";
@@ -208,15 +210,15 @@ function App() {
 
     const hash= window.location.hash;
 
-
-
     if (hash === "#/rag"){
 
       return "rag";
 
     }
 
-
+    if (hash === "#/history") {
+      return "history";
+    }
 
     return "analysis";
 
@@ -234,6 +236,8 @@ function App() {
 
         setCurrentPage("rag");
 
+      } else if (hash === "#/history") {
+        setCurrentPage("history");
       } else {
 
         setCurrentPage("analysis");
@@ -403,7 +407,12 @@ function App() {
     setCurrentPage(page);
     setSidebarOpen(false);
 
-    const targetHash = page === "rag" ? "#/rag" : "#/analysis";
+    const targetHash =
+      page === "rag"
+        ? "#/rag"
+        : page === "history"
+          ? "#/history"
+          : "#/analysis";
 
     if (window.location.hash !== targetHash) {
       window.location.hash = targetHash;
@@ -542,9 +551,8 @@ function App() {
       try {
 
         const explanationForm = new FormData();
-
         explanationForm.append("image", file);
-
+        explanationForm.append("analysis_id", predictionData.analysis_id);
 
 
         const explanationResponse = await axios.post(
@@ -1575,6 +1583,10 @@ function App() {
 
           <RAGChat imageContext={imageContext} token={token} />
 
+        )}
+
+        {currentPage === "history" && (
+          <HistoryPage token={token} />
         )}
 
       </main>

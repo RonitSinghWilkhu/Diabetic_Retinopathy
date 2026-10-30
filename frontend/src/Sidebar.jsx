@@ -7,6 +7,7 @@ import {
   RefreshCw,
   ChevronRight,
   X,
+  History,
 } from "lucide-react";
 
 import "./Sidebar.css";
@@ -123,6 +124,18 @@ function Sidebar({
         >
           <Activity size={17} />
           <span>DR analysis</span>
+        </a>
+
+        {/* view past analysis */}
+        <a
+            className={`nav-item ${
+                currentPage === "history" ? "active" : ""
+            }`}
+            href="#/history"
+            onClick={() => handleNavigation("history")}
+        >
+            <History size={17} />
+            <span>View Past Analysis</span>
         </a>
 
         <a
