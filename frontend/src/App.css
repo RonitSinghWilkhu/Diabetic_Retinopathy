@@ -220,7 +220,7 @@ a {
 .main-content {
   max-width: 1800px;
   min-height: 100vh;
-  margin-left: 248px;
+  margin-left: 0;
   padding: 0 43px 25px;
 }
 

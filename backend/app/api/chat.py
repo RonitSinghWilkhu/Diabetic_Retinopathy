@@ -1,7 +1,9 @@
 import logging
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 
+from app.api.auth import get_current_user
+from app.models import User
 from app.schemas import ChatRequest, ChatResponse
 from app.rag.generation import RAGAnswerGenerator
 
@@ -30,7 +32,10 @@ def get_generator() -> RAGAnswerGenerator:
 
 
 @router.post("/", response_model=ChatResponse)
-def educational_chat(request: ChatRequest):
+def educational_chat(
+    request: ChatRequest,
+    current_user: User = Depends(get_current_user),
+):
     """Answer an educational question using RAG."""
     generator = get_generator()
 

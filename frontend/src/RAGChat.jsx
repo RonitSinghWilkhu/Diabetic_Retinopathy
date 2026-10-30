@@ -101,7 +101,7 @@ function AnswerText({ text, onCitation }) {
   );
 }
 
-export default function RAGChat({ imageContext = null }) {
+export default function RAGChat({ imageContext = null, token = "" }) {
   const [messages, setMessages] = useState([]);
   const [question, setQuestion] = useState("");
   const [pending, setPending] = useState(false);
@@ -131,7 +131,14 @@ export default function RAGChat({ imageContext = null }) {
     setPending(true);
     if (!retryMessage) setMessages((current) => [...current, { id: crypto.randomUUID(), role: "user", text: clean }]);
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/chat/`, { question: clean, image_context: imageContext }, { timeout: 120000 });
+      const response = await axios.post(
+        `${API_BASE_URL}/api/chat/`,
+        { question: clean, image_context: imageContext },
+        {
+          timeout: 120000,
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = response.data || {};
       const sources = normaliseSources(data.sources || []);
       setMessages((current) => [...current, {

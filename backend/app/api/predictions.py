@@ -1,5 +1,7 @@
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 
+from app.api.auth import get_current_user
+from app.models import User
 from app.ml.inference import predict_image
 from app.schemas import PredictionResponse
 
@@ -15,7 +17,10 @@ MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10 MB
 
 
 @router.post("/", response_model=PredictionResponse)
-async def predict_retinopathy(image: UploadFile = File(...)):
+async def predict_retinopathy(
+    image: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+):
     if image.content_type not in ALLOWED_CONTENT_TYPES:
         raise HTTPException(
             status_code=415,

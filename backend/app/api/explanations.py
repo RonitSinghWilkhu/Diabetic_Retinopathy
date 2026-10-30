@@ -1,7 +1,10 @@
 import io
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from PIL import Image, UnidentifiedImageError
+
+from app.api.auth import get_current_user
+from app.models import User
 
 from app.ml.explainability import generate_gradcam
 from app.ml.model_loader import load_model
@@ -27,6 +30,7 @@ ALLOWED_CONTENT_TYPES = {
 async def explain_prediction(
     image: UploadFile = File(...),
     class_index: int | None = None,
+    current_user: User = Depends(get_current_user),
 ):
     """
     Generate a Grad-CAM explanation for an uploaded retinal image.
