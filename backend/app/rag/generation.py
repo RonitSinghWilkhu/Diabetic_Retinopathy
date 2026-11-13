@@ -78,6 +78,7 @@ class GeneratedAnswer:
     model: str
     evidence_count: int
     sources: list[dict[str, Any]] = field(default_factory=list)
+    evidence: list[dict[str, Any]] = field(default_factory=list)
 
 
 class RAGAnswerGenerator:
@@ -239,6 +240,7 @@ class RAGAnswerGenerator:
                 model=self.model,
                 evidence_count=0,
                 sources=[],
+                evidence=[],
             )
 
         image_context_text = "No image analysis context was provided."
@@ -337,6 +339,7 @@ INSTRUCTIONS:
                 model=self.model,
                 evidence_count=len(evidence),
                 sources=self._normalise_sources(list(evidence)),
+                evidence=pipeline_result.to_dict().get("evidence", []),  # Preserve original evidence structure
             )
 
         except Exception:

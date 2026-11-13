@@ -30,3 +30,243 @@
 .history-disclaimer{margin-top:18px;padding-top:13px;border-top:1px solid #edf2f1;color:#819390;font-size:11px;line-height:1.6}
 @media(max-width:900px){.history-images-grid{grid-template-columns:1fr}.history-image-panel img,.history-image-missing{height:260px}}
 @media(max-width:560px){.history-heading{flex-direction:column}.history-card-header{flex-direction:column}.history-confidence{align-items:flex-start}.history-probability{grid-template-columns:105px minmax(40px,1fr) 56px;gap:8px}}
+
+
+/* ========================================
+   Detailed Report Download
+======================================== */
+
+.history-report-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.history-report-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 17px;
+  border: 1px solid #16877d;
+  border-radius: 10px;
+  background: #16877d;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.history-report-button:hover {
+  background: #106e66;
+  box-shadow: 0 5px 14px rgba(22, 135, 125, 0.18);
+  transform: translateY(-1px);
+}
+
+.history-report-button:active {
+  transform: translateY(0);
+}
+
+.history-report-button:focus-visible,
+.history-modal-close:focus-visible,
+.history-modal-actions button:focus-visible {
+  outline: 3px solid rgba(22, 135, 125, 0.3);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   Report Confirmation Modal
+======================================== */
+
+.history-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(10, 32, 31, 0.58);
+  backdrop-filter: blur(4px);
+  animation: historyFadeIn 0.18s ease;
+}
+
+.history-report-modal {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 32px;
+  border: 1px solid #e0eae8;
+  border-radius: 19px;
+  background: #fff;
+  box-shadow: 0 22px 70px rgba(0, 35, 32, 0.22);
+  text-align: center;
+  animation: historyModalIn 0.22s ease;
+}
+
+.history-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 9px;
+  background: #f1f6f5;
+  color: #607875;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.history-modal-close:hover {
+  background: #e4efed;
+}
+
+.history-modal-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.history-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 19px;
+  border-radius: 17px;
+  background: #e9f7f4;
+  color: #16877d;
+}
+
+.history-report-modal h2 {
+  margin: 0 0 12px;
+  color: #174d49;
+  font-size: 21px;
+  letter-spacing: -0.025em;
+}
+
+.history-report-modal > p {
+  margin: 0;
+  color: #718582;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.history-modal-error {
+  margin: 18px 0 0;
+  text-align: left;
+  font-size: 12px;
+}
+
+.history-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 11px;
+  margin-top: 26px;
+}
+
+.history-modal-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 17px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.history-modal-cancel {
+  border: 1px solid #dce8e6;
+  background: #fff;
+  color: #52706c;
+}
+
+.history-modal-cancel:hover:not(:disabled) {
+  background: #f3f8f7;
+}
+
+.history-modal-download {
+  border: 1px solid #16877d;
+  background: #16877d;
+  color: #fff;
+}
+
+.history-modal-download:hover:not(:disabled) {
+  border-color: #106e66;
+  background: #106e66;
+}
+
+.history-modal-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-download-spinner {
+  animation: historySpin 1s linear infinite;
+}
+
+/* ========================================
+   Animations
+======================================== */
+
+@keyframes historyFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes historyModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes historySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   Responsive Adjustments
+======================================== */
+
+@media (max-width: 560px) {
+  .history-report-actions {
+    justify-content: stretch;
+  }
+
+  .history-report-button {
+    width: 100%;
+  }
+
+  .history-report-modal {
+    padding: 27px 20px 22px;
+  }
+
+  .history-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .history-modal-actions button {
+    width: 100%;
+  }
+}

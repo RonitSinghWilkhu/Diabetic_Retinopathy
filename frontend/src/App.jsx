@@ -1501,7 +1501,24 @@ function App() {
 
             </section>
 
+            {hasResults && (
+              <section className="report-navigation">
+                <div>
+                  <h3>Your detailed report is ready</h3>
+                  <p>
+                    You can download the detailed PDF report for this analysis
+                    from the View Past Analysis Page.
+                  </p>
+                </div>
 
+                <button
+                  type="button"
+                  onClick={() => navigateToPage("history")}
+                >
+                  View Past Analysis <ArrowRight size={17} />
+                </button>
+              </section>
+            )}
 
             <section className="info-grid" id="how-it-works">
 
